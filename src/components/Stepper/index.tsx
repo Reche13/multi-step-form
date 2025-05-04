@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import { motion } from "motion/react";
+
 const STEPPER_OPTIONS = [
   {
     label: "Upload Resume",
@@ -86,14 +88,11 @@ const Stepper = ({ steps = STEPPER_OPTIONS }) => {
                 <div className="w-2.5 h-2.5 rounded-full bg-[#D1D5DB]" />
               )}
               {index < currentStep && (
-                <svg
-                  width="14"
-                  height="11"
-                  viewBox="0 0 14 11"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
+                <svg width="14" height="11" viewBox="0 0 14 11" fill="none">
+                  <motion.path
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
                     d="M1 6L4.33333 9.33333L12.6667 1"
                     stroke="white"
                     strokeWidth="2"
@@ -118,9 +117,11 @@ const Stepper = ({ steps = STEPPER_OPTIONS }) => {
             }}
             className="absolute w-0 z-[-1] top-[15px] left-0 h-0.5 bg-[#D1D5DB]"
           >
-            <div
+            <motion.div
               className="bg-primary h-full"
-              style={{ width: `${calculateProgress()}%` }}
+              initial={{ width: 0 }}
+              animate={{ width: `${calculateProgress()}%` }}
+              transition={{ duration: 0.4, ease: "circIn" }}
             />
           </div>
         )}
