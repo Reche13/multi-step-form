@@ -1,26 +1,29 @@
+import UploadResume from "@/components/Sections/UploadResume";
+import { Step } from "@/types";
+
 export const STEPS: Step[] = [
   {
     label: "Upload Resume",
-    Component: () => <div className="">Upload Resume</div>,
+    Component: UploadResume,
   },
   {
     label: "Basic Information",
-    Component: () => <div className="">Basic Information</div>,
+    Component: UploadResume,
   },
   {
     label: "Skill Set",
-    Component: () => <div className="">Skill Set</div>,
+    Component: UploadResume,
   },
   {
     label: "Education",
-    Component: () => <div className="">Education</div>,
+    Component: UploadResume,
   },
   {
     label: "Summary",
-    Component: () => <div className="">Summary</div>,
+    Component: UploadResume,
   },
   {
     label: "Completed",
-    Component: () => <div className="">Completed</div>,
+    Component: UploadResume,
   },
 ];

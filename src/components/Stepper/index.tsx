@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { motion } from "motion/react";
+import { Step } from "@/types";
 
 interface StepperProps {
   steps: Step[];

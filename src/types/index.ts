@@ -1,4 +1,6 @@
-type Step = {
+import { JSX } from "react";
+
+export type Step = {
   label: string;
-  Component: () => React.ReactNode;
+  Component: () => JSX.Element;
 };
