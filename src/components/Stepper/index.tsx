@@ -2,35 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { motion } from "motion/react";
 
-const STEPPER_OPTIONS = [
-  {
-    label: "Upload Resume",
-    Component: () => <div className="">Upload Resume</div>,
-  },
-  {
-    label: "Basic Information",
-    Component: () => <div className="">Basic Information</div>,
-  },
-  {
-    label: "Skill Set",
-    Component: () => <div className="">Skill Set</div>,
-  },
-  {
-    label: "Education",
-    Component: () => <div className="">Education</div>,
-  },
-  {
-    label: "Summary",
-    Component: () => <div className="">Summary</div>,
-  },
-  {
-    label: "Completed",
-    Component: () => <div className="">Completed</div>,
-  },
-];
+interface StepperProps {
+  steps: Step[];
+  currentStep: number;
+}
 
-const Stepper = ({ steps = STEPPER_OPTIONS }) => {
-  const [currentStep, setCurrentStep] = useState(0);
+const Stepper = ({ steps, currentStep }: StepperProps) => {
   const [margins, setMargins] = useState({
     left: 0,
     right: 0,
@@ -38,14 +15,8 @@ const Stepper = ({ steps = STEPPER_OPTIONS }) => {
 
   const stepRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  const handleNext = () => {
-    setCurrentStep((prevStep) => {
-      if (prevStep === steps.length) {
-        return prevStep;
-      } else {
-        return prevStep + 1;
-      }
-    });
+  const calculateProgress = () => {
+    return Math.min(1, (currentStep + 1) / (steps.length - 1)) * 100;
   };
 
   useEffect(() => {
@@ -58,10 +29,6 @@ const Stepper = ({ steps = STEPPER_OPTIONS }) => {
       });
     }
   }, [stepRef.current, steps.length]);
-
-  const calculateProgress = () => {
-    return Math.min(1, currentStep / (steps.length - 1)) * 100;
-  };
 
   return (
     <>
@@ -121,15 +88,11 @@ const Stepper = ({ steps = STEPPER_OPTIONS }) => {
               className="bg-primary h-full"
               initial={{ width: 0 }}
               animate={{ width: `${calculateProgress()}%` }}
-              transition={{ duration: 0.4, ease: "circIn" }}
+              transition={{ duration: 0.4, ease: "easeIn" }}
             />
           </div>
         )}
       </div>
-
-      <button onClick={handleNext} className="border p-4 cursor-pointer">
-        {currentStep === steps.length ? "Finish" : "Next"}
-      </button>
     </>
   );
 };
