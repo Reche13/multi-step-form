@@ -29,7 +29,7 @@ const Navbar = () => {
     <nav className="flex items-center gap-3 rounded-full px-1 py-px border border-[#83839638]">
       {navList.map((nav) => (
         <Link
-          className="text-surface-black text-sm leading-[24px] font-medium px-4 py-2"
+          className="text-surface-black hover:text-primary transition-colors duration-200 text-sm leading-[24px] font-medium px-4 py-2"
           key={nav.label}
           href={nav.href}
         >
