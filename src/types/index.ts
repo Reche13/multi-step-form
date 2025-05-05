@@ -1,6 +1,10 @@
 import { JSX } from "react";
 
+type ComponentProps = {
+  onNext: () => void;
+};
+
 export type Step = {
   label: string;
-  Component: () => JSX.Element;
+  Component: ({ onNext }: ComponentProps) => JSX.Element;
 };

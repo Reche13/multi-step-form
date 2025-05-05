@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import Stepper from "@/components/Stepper";
 import { STEPS } from "@/constants";
+import { FormContextProvider } from "@/providers/FormContext";
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -25,7 +26,9 @@ export default function Home() {
         <Stepper steps={STEPS} currentStep={currentStep} />
       </div>
       <div className="w-full max-w-[1280px] mx-auto px-12  mt-10">
-        <ActiveSection />
+        <FormContextProvider>
+          <ActiveSection onNext={handleNext} />
+        </FormContextProvider>
       </div>
       <button onClick={handleNext} className="border p-4 cursor-pointer">
         {currentStep === STEPS.length ? "Finish" : "Next"}

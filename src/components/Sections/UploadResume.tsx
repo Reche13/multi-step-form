@@ -11,28 +11,38 @@ import trash from "@/assets/icons/trash.svg";
 import cross from "@/assets/icons/cross.svg";
 
 import { AnimatePresence, motion } from "motion/react";
+import { useFormContext } from "react-hook-form";
+import { FormFields } from "@/schemas/formSchema";
 
 type FileStatus = "idle" | "uploading" | "done";
 
-const UploadResume = () => {
-  const [file, setFile] = useState<File | null>(null);
+interface Props {
+  onNext: () => void;
+}
+
+const UploadResume = ({ onNext }: Props) => {
   const [progress, setProgress] = useState(0);
   const [uploadedBytes, setUploadedBytes] = useState(0);
   const [status, setStatus] = useState<FileStatus>("idle");
+  const [error, setError] = useState("");
+
+  const { setValue, watch, trigger } = useFormContext<FormFields>();
+
+  const file = watch("resume");
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
     if (!selected) return;
-
-    setFile(selected);
+    setValue("resume", selected, { shouldValidate: true });
     simulateUpload(selected);
   };
 
   const simulateUpload = (upload: File) => {
     if (!upload) return;
 
+    setError("");
     setStatus("uploading");
     setProgress(0);
     setUploadedBytes(0);
@@ -57,10 +67,23 @@ const UploadResume = () => {
   };
 
   const handleRemove = () => {
-    setFile(null);
+    setValue("resume", null, { shouldValidate: true });
     setProgress(0);
     setStatus("idle");
     if (inputRef.current) inputRef.current.value = "";
+  };
+
+  const handleNext = async () => {
+    if (!file) {
+      setError("Resume cannot be empty");
+      return;
+    }
+    const isValid = await trigger("resume");
+    if (isValid) {
+      onNext();
+    } else {
+      setError("Resume cannot be empty");
+    }
   };
 
   return (
@@ -98,6 +121,12 @@ const UploadResume = () => {
           >
             Browse File
           </Button>
+
+          {error && (
+            <div className="absolute mt-6 top-full text-sm text-error">
+              {error}
+            </div>
+          )}
 
           {file && (
             <AnimatePresence>
@@ -177,7 +206,9 @@ const UploadResume = () => {
           )}
         </div>
         <div className="w-full mt-6 flex justify-end">
-          <Button className="w-[170px]">NEXT</Button>
+          <Button onClick={handleNext} className="w-[170px]">
+            NEXT
+          </Button>
         </div>
       </div>
     </div>
