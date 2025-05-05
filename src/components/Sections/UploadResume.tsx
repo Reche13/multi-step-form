@@ -10,7 +10,7 @@ import FileComplete from "@/assets/icons/fileComplete";
 import trash from "@/assets/icons/trash.svg";
 import cross from "@/assets/icons/cross.svg";
 
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 type FileStatus = "idle" | "uploading" | "done";
 
@@ -100,73 +100,84 @@ const UploadResume = () => {
           </Button>
 
           {file && (
-            <div className="absolute top-full mt-6 w-full left-0 bg-[#FFF5F2] rounded-2xl p-6 flex flex-col gap-6">
-              <div className="flex gap-5">
-                <Image
-                  src={pdfFileImage}
-                  alt="PDF File"
-                  width={56}
-                  height={54}
-                />
-                <div className="flex flex-col gap-2.5">
-                  <p className="font-medium text-base text-[#292D32]">
-                    {file.name}
-                  </p>
-                  <div className="flex items-center">
-                    <div className="text-sm font-normal text-[#A9ACB4]">
-                      <span>{formatSize(uploadedBytes)}</span> of{" "}
-                      <span>{formatSize(file?.size)}</span>
-                      {"  "}•
-                    </div>
+            <AnimatePresence>
+              <motion.div
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                animate={{ height: "auto", opacity: 1 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+                className="absolute top-full mt-6 w-full left-0 bg-[#FFF5F2] rounded-2xl p-6 flex flex-col gap-6"
+              >
+                <div className="flex gap-5">
+                  <Image
+                    src={pdfFileImage}
+                    alt="PDF File"
+                    width={56}
+                    height={54}
+                  />
+                  <div className="flex flex-col gap-2.5">
+                    <p className="font-medium text-base text-[#292D32]">
+                      {file.name}
+                    </p>
+                    <div className="flex items-center">
+                      <div className="text-sm font-normal text-[#A9ACB4]">
+                        <span>{formatSize(uploadedBytes)}</span> of{" "}
+                        <span>{formatSize(file?.size)}</span>
+                        {"  "}•
+                      </div>
 
-                    <div className="text-sm font-normal text-[#292D32] flex items-center gap-1.5 ml-1">
-                      {status === "uploading" && (
-                        <>
-                          <FileLoading />
-                          <span>Uploading...</span>
-                        </>
-                      )}
-                      {status === "done" && (
-                        <>
-                          <FileComplete />
-                          <span>Completed</span>
-                        </>
-                      )}
+                      <div className="text-sm font-normal text-[#292D32] flex items-center gap-1.5 ml-1">
+                        {status === "uploading" && (
+                          <>
+                            <FileLoading />
+                            <span>Uploading...</span>
+                          </>
+                        )}
+                        {status === "done" && (
+                          <>
+                            <FileComplete />
+                            <span>Completed</span>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {status === "uploading" && (
-                <div className="w-full h-2 rounded-full bg-[#CBD0DC]">
-                  <div
-                    style={{
-                      width: `${progress}%`,
-                    }}
-                    className="h-full bg-primary rounded-full"
-                  />
-                </div>
-              )}
+                {status === "uploading" && (
+                  <div className="w-full h-2 rounded-full bg-[#CBD0DC]">
+                    <motion.div
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${progress}%` }}
+                      className="h-full bg-primary rounded-full"
+                    />
+                  </div>
+                )}
 
-              {status === "done" && (
-                <button
-                  onClick={handleRemove}
-                  className="absolute top-6 right-12 cursor-pointer"
-                >
-                  <Image src={trash} alt="Delete" width={19} height={19} />
-                </button>
-              )}
+                {status === "done" && (
+                  <button
+                    onClick={handleRemove}
+                    className="absolute top-6 right-12 cursor-pointer"
+                  >
+                    <Image src={trash} alt="Delete" width={19} height={19} />
+                  </button>
+                )}
 
-              {status === "uploading" && (
-                <button
-                  onClick={handleRemove}
-                  className="absolute top-6 right-12 cursor-pointer"
-                >
-                  <Image src={cross} alt="Delete" width={19} height={19} />
-                </button>
-              )}
-            </div>
+                {status === "uploading" && (
+                  <button
+                    onClick={handleRemove}
+                    className="absolute top-6 right-12 cursor-pointer"
+                  >
+                    <Image src={cross} alt="Delete" width={19} height={19} />
+                  </button>
+                )}
+              </motion.div>
+            </AnimatePresence>
           )}
+        </div>
+        <div className="w-full mt-6 flex justify-end">
+          <Button className="w-[170px]">NEXT</Button>
         </div>
       </div>
     </div>
