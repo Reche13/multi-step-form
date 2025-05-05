@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import SectionTitle from "../Primitives/SectionTitle";
 import Button from "../Primitives/Button";
 
@@ -15,18 +15,23 @@ import { formatSize } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { useFormContext } from "react-hook-form";
 import { FormFields } from "@/schemas/formSchema";
-
-type FileStatus = "idle" | "uploading" | "done";
+import { useFileStore } from "@/store/useFileStore";
 
 interface Props {
   onNext: () => void;
 }
 
 const UploadResume = ({ onNext }: Props) => {
-  const [progress, setProgress] = useState(0);
-  const [uploadedBytes, setUploadedBytes] = useState(0);
-  const [status, setStatus] = useState<FileStatus>("idle");
-  const [error, setError] = useState("");
+  const {
+    progress,
+    uploadedBytes,
+    status,
+    error,
+    setProgress,
+    setUploadedBytes,
+    setStatus,
+    setError,
+  } = useFileStore();
 
   const { setValue, watch, trigger } = useFormContext<FormFields>();
 
