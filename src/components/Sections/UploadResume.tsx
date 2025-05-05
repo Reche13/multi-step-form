@@ -1,14 +1,16 @@
 import { useState, useRef } from "react";
 import SectionTitle from "../Primitives/SectionTitle";
+import Button from "../Primitives/Button";
+
 import Image from "next/image";
 import fileUploadImage from "@/assets/icons/fileUpload.svg";
 import pdfFileImage from "@/assets/icons/pdfFile.svg";
-import Button from "../Primitives/Button";
-import { formatSize } from "@/lib/utils";
 import FileLoading from "@/assets/icons/fileLoading";
 import FileComplete from "@/assets/icons/fileComplete";
 import trash from "@/assets/icons/trash.svg";
 import cross from "@/assets/icons/cross.svg";
+
+import { formatSize } from "@/lib/utils";
 
 import { AnimatePresence, motion } from "motion/react";
 import { useFormContext } from "react-hook-form";

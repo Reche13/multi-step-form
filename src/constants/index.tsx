@@ -1,3 +1,4 @@
+import BasicInformation from "@/components/Sections/BasicInformation";
 import UploadResume from "@/components/Sections/UploadResume";
 import { Step } from "@/types";
 
@@ -8,7 +9,7 @@ export const STEPS: Step[] = [
   },
   {
     label: "Basic Information",
-    Component: UploadResume,
+    Component: BasicInformation,
   },
   {
     label: "Skill Set",
