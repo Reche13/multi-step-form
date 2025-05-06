@@ -13,7 +13,7 @@ import {
 import Button from "../Primitives/Button";
 import { useFormContext } from "react-hook-form";
 import { FormFields } from "@/schemas/formSchema";
-import { Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import {
   DndContext,
@@ -26,63 +26,15 @@ import {
   arrayMove,
   rectSortingStrategy,
   SortableContext,
-  useSortable,
 } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import SortableSkill from "../DnD/SortableSkill";
 
 interface Props {
   onNext: () => void;
   onBack: () => void;
 }
 
-type SkillType = "Beginner" | "Intermediate" | "Expert";
-
-const SortableSkill = ({
-  id,
-  name,
-  level,
-  onRemove,
-}: {
-  id: number;
-  name: string;
-  level: SkillType;
-  onRemove: () => void;
-}) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    width: "fit-content",
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className="flex items-center h-[48px] px-2 py-1 gap-2.5 text-sm text-[#5C5C5C] bg-white border border-[#ECECEC] rounded-sm"
-    >
-      <div
-        className="flex items-center gap-2.5 cursor-move px-2 py-1"
-        {...attributes}
-        {...listeners}
-      >
-        {name} ({level})
-      </div>
-
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onRemove();
-        }}
-        className="cursor-pointer"
-      >
-        <X size={20} color="#484848" />
-      </button>
-    </div>
-  );
-};
+export type SkillType = "Beginner" | "Intermediate" | "Expert";
 
 const SkillSet = ({ onNext, onBack }: Props) => {
   const { setValue, watch } = useFormContext<FormFields>();
@@ -118,6 +70,12 @@ const SkillSet = ({ onNext, onBack }: Props) => {
       const newIndex = over.id;
       const reordered = arrayMove(skills, oldIndex, newIndex);
       setValue("skills", reordered);
+    }
+  };
+
+  const handleNext = () => {
+    if (skills.length > 0) {
+      onNext();
     }
   };
 
@@ -194,7 +152,7 @@ const SkillSet = ({ onNext, onBack }: Props) => {
         <Button onClick={onBack} className="w-[170px]" variant="secondary">
           BACK
         </Button>
-        <Button onClick={onNext} className="w-[170px]">
+        <Button onClick={handleNext} className="w-[170px]">
           NEXT
         </Button>
       </div>
