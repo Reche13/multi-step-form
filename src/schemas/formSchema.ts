@@ -7,8 +7,10 @@ export const formSchema = z.object({
     .refine((file) => file?.size !== 0, {
       message: "Resume file is required.",
     }),
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email"),
+  firstname: z.string().min(3, "Min length - 3 characters"),
+  lastname: z.string().min(3, "Min length - 3 characters"),
+  email: z.string().email("Enter valid email id"),
+  phone: z.string().min(10, "Enter valid phone number"),
 });
 
 export type FormFields = z.infer<typeof formSchema>;

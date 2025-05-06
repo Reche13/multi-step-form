@@ -20,9 +20,6 @@ export default function Home() {
           <ActiveSection onNext={next} onBack={back} />
         </FormContextProvider>
       </div>
-      <button onClick={next} className="border p-4 cursor-pointer">
-        {currentStep === STEPS.length ? "Finish" : "Next"}
-      </button>
     </div>
   );
 }
