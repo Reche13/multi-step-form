@@ -76,6 +76,8 @@ const SkillSet = ({ onNext, onBack }: Props) => {
   const handleNext = () => {
     if (skills.length > 0) {
       onNext();
+    } else {
+      setError("Please add atleast 1 skill");
     }
   };
 
