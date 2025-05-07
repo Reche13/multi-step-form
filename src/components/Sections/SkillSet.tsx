@@ -86,9 +86,9 @@ const SkillSet = ({ onNext, onBack }: Props) => {
       <div className="flex flex-col gap-4">
         <SectionTitle title="Add Skill Sets" />
         <div className="mt-6">
-          <div className="flex gap-5">
+          <div className="flex flex-col md:flex-row gap-5">
             <Input
-              className="w-[420px]"
+              className="w-full md:w-[420px]"
               label="Add Skill"
               id="skill"
               type="text"
@@ -108,7 +108,7 @@ const SkillSet = ({ onNext, onBack }: Props) => {
                 value={level}
                 onValueChange={(value) => setLevel(value as SkillType)}
               >
-                <SelectTrigger className="w-[420px] outline-none">
+                <SelectTrigger className="w-full md:w-[420px] outline-none">
                   <SelectValue placeholder="Select Level" />
                 </SelectTrigger>
                 <SelectContent>
