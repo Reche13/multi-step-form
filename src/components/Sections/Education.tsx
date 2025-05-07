@@ -5,7 +5,7 @@ import Input from "../Primitives/Input";
 import CalendarInput from "../Primitives/Input/CalendarInput";
 import { useFormContext } from "react-hook-form";
 import { FormFields } from "@/schemas/formSchema";
-import { GripVertical, Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import {
   DndContext,
