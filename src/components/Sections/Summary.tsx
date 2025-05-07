@@ -55,7 +55,7 @@ const Summary = ({ onBack, onNext, reset }: Props) => {
 
           <div className="flex flex-col gap-8">
             <SummaryTitle title="Basic Information" />
-            <div className="grid grid-cols-2 gap-10 max-w-[50vw]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:max-w-[50vw]">
               <SummaryItem header="First Name" value={form.firstname} />
               <SummaryItem header="Last Name" value={form.lastname} />
               <SummaryItem header="Email Id" value={form.email} />
@@ -67,10 +67,10 @@ const Summary = ({ onBack, onNext, reset }: Props) => {
 
           <div className="flex flex-col gap-8">
             <SummaryTitle title="Skill Sets" />
-            <div className="grid grid-cols-2 gap-10 max-w-[50vw]">
+            <div className="grid grid-cols-2 gap-10 md:max-w-[50vw] pl-1">
               {form.skills?.length > 0 &&
                 form.skills.map((skill, index) => (
-                  <React.Fragment key={skill.name + skill.level}>
+                  <React.Fragment key={skill.name + skill.level + index}>
                     <SummaryItem
                       header={"Skill " + (index + 1)}
                       value={skill.name}
@@ -89,8 +89,8 @@ const Summary = ({ onBack, onNext, reset }: Props) => {
               {form.colleges?.length > 0 &&
                 form.colleges.map((college, index) => (
                   <div
-                    className="grid grid-cols-4 gap-2"
-                    key={college.degree + college.universityName}
+                    className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-2"
+                    key={college.degree + college.universityName + index}
                   >
                     <SummaryItem header="Degree Name" value={college.degree} />
                     <SummaryItem

@@ -8,9 +8,9 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <div className="w-full px-16">
+    <div className="w-full px-4 md:px-16">
       <div className="w-full max-w-[1280px] mx-auto pt-3 pb-2 flex items-center justify-between">
-        <Link href="/">
+        <Link href="/" className="shrink-0">
           <Image src={logo} alt="Beyond Labs" width={125} height={44} />
         </Link>
         <Navbar />
