@@ -212,7 +212,7 @@ const UploadResume = ({ onNext }: Props) => {
             </AnimatePresence>
           )}
         </div>
-        <div className="w-full mt-6 flex justify-end">
+        <div className="w-full mt-6 flex justify-end pb-12">
           <Button onClick={handleNext} className="w-[170px]">
             NEXT
           </Button>

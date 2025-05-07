@@ -84,7 +84,7 @@ const BasicInformation = ({ onNext, onBack }: Props) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-end gap-5 mt-24">
+      <div className="flex items-center justify-end gap-5 mt-24 pb-12">
         <Button onClick={onBack} className="w-[170px]" variant="secondary">
           BACK
         </Button>

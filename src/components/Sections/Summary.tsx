@@ -4,16 +4,26 @@ import Line from "../Primitives/Line";
 import { useFormContext } from "react-hook-form";
 import { FormFields } from "@/schemas/formSchema";
 import Button from "../Primitives/Button";
+import { Download } from "lucide-react";
+
+import { format } from "date-fns";
 
 interface Props {
   onNext: () => void;
   onBack: () => void;
+  reset: () => void;
 }
 
-const Summary = ({ onBack, onNext }: Props) => {
+const Summary = ({ onBack, onNext, reset }: Props) => {
   const [checked, setChecked] = useState(false);
   const { getValues } = useFormContext<FormFields>();
   const form = getValues();
+
+  const handleConfirm = () => {
+    console.log(form);
+    reset();
+    onNext();
+  };
 
   return (
     <div className="w-full">
@@ -24,10 +34,21 @@ const Summary = ({ onBack, onNext }: Props) => {
 
           <div className="flex flex-col gap-10">
             <SummaryTitle title="Resume" />
-            <SummaryItem
-              header="File name"
-              value={form.resume?.name || "hello.pdf"}
-            />
+            <div className="flex flex-col gap-5">
+              <p className="text-sm font-normal text-[#272727]">File name</p>
+              <p className="text-base flex items-center gap-4 font-semibold text-[#272727]">
+                {form.resume?.name}
+                {form.resume && (
+                  <a
+                    href={URL.createObjectURL(form.resume)}
+                    download={form.resume.name}
+                    className="inline-block text-orange-500"
+                  >
+                    <Download size={20} />
+                  </a>
+                )}
+              </p>
+            </div>
           </div>
 
           <Line />
@@ -75,11 +96,11 @@ const Summary = ({ onBack, onNext }: Props) => {
                     />
                     <SummaryItem
                       header="Year of Starting"
-                      value={college.startYear.getFullYear().toString()}
+                      value={format(college.startYear, "yyyy")}
                     />
                     <SummaryItem
                       header="Year of Completion"
-                      value={college.endYear.getFullYear().toString()}
+                      value={format(college.endYear, "yyyy")}
                     />
                   </div>
                 ))}
@@ -114,11 +135,15 @@ const Summary = ({ onBack, onNext }: Props) => {
           </p>
         </div>
 
-        <div className="flex items-center gap-5 mt-14">
+        <div className="flex items-center gap-5 mt-14 pb-16">
           <Button onClick={onBack} className="w-[170px]" variant="secondary">
             EDIT
           </Button>
-          <Button onClick={onNext} className="w-[170px]">
+          <Button
+            disabled={!checked}
+            onClick={handleConfirm}
+            className="w-[170px]"
+          >
             CONFIRM
           </Button>
         </div>

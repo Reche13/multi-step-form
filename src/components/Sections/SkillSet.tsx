@@ -108,7 +108,7 @@ const SkillSet = ({ onNext, onBack }: Props) => {
                 value={level}
                 onValueChange={(value) => setLevel(value as SkillType)}
               >
-                <SelectTrigger className="w-[420px]">
+                <SelectTrigger className="w-[420px] outline-none">
                   <SelectValue placeholder="Select Level" />
                 </SelectTrigger>
                 <SelectContent>
@@ -121,9 +121,6 @@ const SkillSet = ({ onNext, onBack }: Props) => {
               </Select>
             </div>
           </div>
-          <Button onClick={addSkill} className="mt-10 w-[150px]">
-            Add <Plus size={20} className="ml-2.5" />
-          </Button>
 
           <DndContext
             sensors={sensors}
@@ -147,10 +144,14 @@ const SkillSet = ({ onNext, onBack }: Props) => {
               </div>
             </SortableContext>
           </DndContext>
+
+          <Button onClick={addSkill} className="mt-10 w-[150px]">
+            Add <Plus size={20} className="ml-2.5" />
+          </Button>
         </div>
       </div>
 
-      <div className="flex items-center justify-end gap-5 mt-24">
+      <div className="flex items-center justify-end gap-5 mt-24 pb-12">
         <Button onClick={onBack} className="w-[170px]" variant="secondary">
           BACK
         </Button>

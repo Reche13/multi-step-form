@@ -43,19 +43,15 @@ const Stepper = ({ steps, currentStep }: StepperProps) => {
             className="flex flex-col items-center gap-4"
           >
             <div
-              className={`w-8 h-8 flex items-center justify-center border-2 rounded-full ${
-                index === currentStep ? "border-primary" : "border-[#D1D5DB]"
-              } ${
-                index < currentStep ? "bg-primary border-primary" : "bg-white"
+              className={`w-8 h-8 flex items-center justify-center border-2 rounded-full transition-all duration-300 ${
+                index < currentStep || currentStep === steps.length - 1
+                  ? "bg-primary border-primary"
+                  : index === currentStep
+                  ? "bg-white border-primary"
+                  : "bg-white border-[#D1D5DB]"
               }`}
             >
-              {index === currentStep && (
-                <div className="w-2.5 h-2.5 rounded-full bg-primary" />
-              )}
-              {index === currentStep + 1 && (
-                <div className="w-2.5 h-2.5 rounded-full bg-[#D1D5DB]" />
-              )}
-              {index < currentStep && (
+              {index < currentStep || currentStep === steps.length - 1 ? (
                 <svg width="14" height="11" viewBox="0 0 14 11" fill="none">
                   <motion.path
                     initial={{ pathLength: 0 }}
@@ -68,8 +64,11 @@ const Stepper = ({ steps, currentStep }: StepperProps) => {
                     strokeLinejoin="round"
                   />
                 </svg>
-              )}
+              ) : index === currentStep ? (
+                <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+              ) : null}
             </div>
+
             <div className="text-sm text-[#484848] font-medium">
               {step.label}
             </div>

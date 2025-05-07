@@ -1,4 +1,5 @@
 import BasicInformation from "@/components/Sections/BasicInformation";
+import Completion from "@/components/Sections/Completion";
 import Education from "@/components/Sections/Education";
 import SkillSet from "@/components/Sections/SkillSet";
 import Summary from "@/components/Sections/Summary";
@@ -28,6 +29,6 @@ export const STEPS: Step[] = [
   },
   {
     label: "Completed",
-    Component: UploadResume,
+    Component: Completion,
   },
 ];

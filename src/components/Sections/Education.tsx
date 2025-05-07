@@ -146,10 +146,6 @@ const Education = ({ onBack, onNext }: Props) => {
           </div>
           {error && <p className="text-sm text-error">{error}</p>}
 
-          <Button onClick={addCollege} className="mt-10 w-[150px]">
-            Add <Plus size={20} className="ml-2.5" />
-          </Button>
-
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
@@ -174,10 +170,14 @@ const Education = ({ onBack, onNext }: Props) => {
               </div>
             </SortableContext>
           </DndContext>
+
+          <Button onClick={addCollege} className="mt-10 w-[150px]">
+            Add <Plus size={20} className="ml-2.5" />
+          </Button>
         </div>
       </div>
 
-      <div className="flex items-center justify-end gap-5 mt-24">
+      <div className="flex items-center justify-end gap-5 mt-24 pb-12">
         <Button onClick={onBack} className="w-[170px]" variant="secondary">
           BACK
         </Button>

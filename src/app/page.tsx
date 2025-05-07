@@ -4,9 +4,12 @@ import Stepper from "@/components/Stepper";
 import { STEPS } from "@/constants";
 import { FormContextProvider } from "@/providers/FormContext";
 import useStepper from "@/hooks/use-stepper";
+import { useFormPersistence } from "@/hooks/use-form-persistance";
+import React from "react";
 
-export default function Home() {
+function Home() {
   const { currentStep, next, back } = useStepper(STEPS);
+  const { resetForm } = useFormPersistence();
 
   const ActiveSection = STEPS[currentStep].Component;
 
@@ -16,10 +19,16 @@ export default function Home() {
         <Stepper steps={STEPS} currentStep={currentStep} />
       </div>
       <div className="w-full max-w-[1280px] mx-auto px-12  mt-10">
-        <FormContextProvider>
-          <ActiveSection onNext={next} onBack={back} />
-        </FormContextProvider>
+        <ActiveSection onNext={next} onBack={back} reset={resetForm} />
       </div>
     </div>
+  );
+}
+
+export default function FormWrapper() {
+  return (
+    <FormContextProvider>
+      <Home />
+    </FormContextProvider>
   );
 }
