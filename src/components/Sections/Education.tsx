@@ -2,6 +2,7 @@ import React from "react";
 import SectionTitle from "../Primitives/SectionTitle";
 import Button from "../Primitives/Button";
 import Input from "../Primitives/Input";
+import Calendar from "../Calendar";
 
 interface Props {
   onNext: () => void;
@@ -30,6 +31,9 @@ const Education = ({ onBack, onNext }: Props) => {
           </div>
         </div>
       </div>
+
+      <Calendar />
+
       <div className="flex items-center justify-end gap-5 mt-24">
         <Button onClick={onBack} className="w-[170px]" variant="secondary">
           BACK
