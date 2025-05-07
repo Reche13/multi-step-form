@@ -66,6 +66,8 @@ const Stepper = ({ steps, currentStep }: StepperProps) => {
                 </svg>
               ) : index === currentStep ? (
                 <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+              ) : index === currentStep + 1 ? (
+                <div className="w-2.5 h-2.5 rounded-full bg-[#D1D5DB]" />
               ) : null}
             </div>
 
