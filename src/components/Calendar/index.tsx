@@ -14,7 +14,6 @@ import {
   parse,
   setMonth,
   setYear,
-  startOfToday,
   startOfWeek,
 } from "date-fns";
 import { useCallback, useMemo, useState } from "react";
@@ -37,10 +36,15 @@ const colStartClasses = [
   "col-start-7",
 ];
 
-export default function Calendar() {
-  const today = useMemo(() => startOfToday(), []);
-  const [selectedDay, setSelectedDay] = useState(today);
-  const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
+interface CalendarProps {
+  selectedDate: Date;
+  onChange: (date: Date) => void;
+}
+
+export default function Calendar({ selectedDate, onChange }: CalendarProps) {
+  const [currentMonth, setCurrentMonth] = useState(
+    format(selectedDate ?? Date.now(), "MMM-yyyy")
+  );
 
   const firstDayCurrentMonth = useMemo(
     () => parse(currentMonth, "MMM-yyyy", new Date()),
@@ -54,12 +58,12 @@ export default function Calendar() {
       date: day,
       dayOfMonth: format(day, "d"),
       iso: format(day, "yyyy-MM-dd"),
-      isSelected: isEqual(day, selectedDay),
+      isSelected: isEqual(day, selectedDate),
       isToday: isToday(day),
       isSameMonth: isSameMonth(day, firstDayCurrentMonth),
       colStart: getDay(day),
     }));
-  }, [firstDayCurrentMonth, selectedDay]);
+  }, [firstDayCurrentMonth, selectedDate]);
 
   const previousMonth = useCallback(() => {
     const newDate = add(firstDayCurrentMonth, { months: -1 });
@@ -169,7 +173,7 @@ export default function Calendar() {
             >
               <button
                 type="button"
-                onClick={() => setSelectedDay(date)}
+                onClick={() => onChange(date)}
                 className={cn(
                   "mx-auto flex h-10 w-10 items-center justify-center rounded-lg",
                   isSelected && "text-[#FBFAFA] bg-primary",
