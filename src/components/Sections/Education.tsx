@@ -103,10 +103,10 @@ const Education = ({ onBack, onNext }: Props) => {
       <div className="flex flex-col gap-4">
         <SectionTitle title="Add Education" />
         <div className="mt-6 space-y-6">
-          <div className="flex gap-5">
+          <div className="flex flex-col md:flex-row gap-5">
             <Input
               error={DegreeError}
-              className="w-[420px]"
+              className="w-full md:w-[420px]"
               label="Add Degree"
               id="degree"
               type="text"
@@ -118,7 +118,7 @@ const Education = ({ onBack, onNext }: Props) => {
             />
             <Input
               error={UniError}
-              className="w-[420px]"
+              className="-full md:w-[420px]"
               label="University/College"
               id="university"
               type="text"
@@ -130,16 +130,16 @@ const Education = ({ onBack, onNext }: Props) => {
             />
           </div>
 
-          <div className="flex gap-5">
+          <div className="flex flex-col md:flex-row gap-5">
             <CalendarInput
               label="Starting Year"
-              className="w-[420px]"
+              className="w-full md:w-[420px]"
               onDateChange={setStartYear}
               selectedDate={startYear}
             />
             <CalendarInput
               label="Ending Year"
-              className="w-[420px]"
+              className="w-full md:w-[420px]"
               onDateChange={setEndYear}
               selectedDate={endYear}
             />
