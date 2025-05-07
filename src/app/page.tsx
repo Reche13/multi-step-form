@@ -14,11 +14,11 @@ function Home() {
   const ActiveSection = STEPS[currentStep].Component;
 
   return (
-    <div className="w-full px-8">
+    <div className="w-full md:px-8">
       <div className="w-full max-w-[1280px] mx-auto pt-20">
         <Stepper steps={STEPS} currentStep={currentStep} />
       </div>
-      <div className="w-full max-w-[1280px] mx-auto px-12  mt-10">
+      <div className="w-full max-w-[1280px] mx-auto px-4 md:px-12  mt-10">
         <ActiveSection onNext={next} onBack={back} reset={resetForm} />
       </div>
     </div>

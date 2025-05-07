@@ -71,7 +71,7 @@ const Stepper = ({ steps, currentStep }: StepperProps) => {
               ) : null}
             </div>
 
-            <div className="text-sm text-[#484848] font-medium">
+            <div className="text-sm text-[#484848] font-medium hidden sm:block">
               {step.label}
             </div>
           </div>

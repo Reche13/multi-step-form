@@ -97,7 +97,7 @@ const UploadResume = ({ onNext }: Props) => {
     <div className="w-full">
       <div className="flex flex-col gap-4">
         <SectionTitle title="Upload Resume" />
-        <div className="relative w-[530px] h-[252px] flex flex-col items-center justify-center rounded-2xl border-dashed border-[2.5px] border-[#CBD0DC]">
+        <div className="relative w-full md:w-[530px] h-[252px] px-4 flex flex-col items-center justify-center rounded-2xl border-dashed border-[2.5px] border-[#CBD0DC]">
           <Image
             src={fileUploadImage}
             alt="Upload File"
@@ -156,7 +156,7 @@ const UploadResume = ({ onNext }: Props) => {
                       {file.name}
                     </p>
                     <div className="flex items-center">
-                      <div className="text-sm font-normal text-[#A9ACB4]">
+                      <div className="text-sm font-normal text-[#A9ACB4] hidden sm:block">
                         <span>{formatSize(uploadedBytes)}</span> of{" "}
                         <span>{formatSize(file?.size)}</span>
                         {"  "}•
@@ -194,7 +194,7 @@ const UploadResume = ({ onNext }: Props) => {
                 {status === "done" && (
                   <button
                     onClick={handleRemove}
-                    className="absolute top-6 right-12 cursor-pointer"
+                    className="absolute top-2 right-2 md:top-6 md:right-12 cursor-pointer"
                   >
                     <Image src={trash} alt="Delete" width={19} height={19} />
                   </button>
@@ -203,7 +203,7 @@ const UploadResume = ({ onNext }: Props) => {
                 {status === "uploading" && (
                   <button
                     onClick={handleRemove}
-                    className="absolute top-6 right-12 cursor-pointer"
+                    className="absolute top-2 right-2 md:top-6 md:right-12 cursor-pointer"
                   >
                     <Image src={cross} alt="Delete" width={19} height={19} />
                   </button>
@@ -212,7 +212,7 @@ const UploadResume = ({ onNext }: Props) => {
             </AnimatePresence>
           )}
         </div>
-        <div className="w-full mt-6 flex justify-end pb-12">
+        <div className="w-full mt-40 md:mt-6 flex justify-end pb-12">
           <Button onClick={handleNext} className="w-[170px]">
             NEXT
           </Button>
