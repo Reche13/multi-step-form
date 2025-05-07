@@ -48,11 +48,18 @@ export default function Calendar() {
   );
 
   const days = useMemo(() => {
-    return eachDayOfInterval({
-      start: startOfWeek(firstDayCurrentMonth),
-      end: endOfWeek(endOfMonth(firstDayCurrentMonth)),
-    });
-  }, [firstDayCurrentMonth]);
+    const start = startOfWeek(firstDayCurrentMonth);
+    const end = endOfWeek(endOfMonth(firstDayCurrentMonth));
+    return eachDayOfInterval({ start, end }).map((day) => ({
+      date: day,
+      dayOfMonth: format(day, "d"),
+      iso: format(day, "yyyy-MM-dd"),
+      isSelected: isEqual(day, selectedDay),
+      isToday: isToday(day),
+      isSameMonth: isSameMonth(day, firstDayCurrentMonth),
+      colStart: getDay(day),
+    }));
+  }, [firstDayCurrentMonth, selectedDay]);
 
   const previousMonth = useCallback(() => {
     const newDate = add(firstDayCurrentMonth, { months: -1 });
@@ -80,6 +87,9 @@ export default function Calendar() {
     [firstDayCurrentMonth]
   );
 
+  const selectedMonth = format(firstDayCurrentMonth, "M");
+  const selectedYear = format(firstDayCurrentMonth, "yyyy");
+
   return (
     <div className="w-fit px-2 py-4 bg-[#FBFAFA]">
       {/* Header */}
@@ -94,7 +104,7 @@ export default function Calendar() {
 
         <div className="flex items-center space-x-2">
           <Select
-            value={format(firstDayCurrentMonth, "M")}
+            value={selectedMonth}
             onValueChange={(val) => handleMonthChange(Number(val))}
           >
             <SelectTrigger className="border border-[#DADADA] bg-white rounded-sm py-2 pl-2 pr-1 w-[116px] h-10 font-medium text-sm text-[#484848]">
@@ -110,7 +120,7 @@ export default function Calendar() {
           </Select>
 
           <Select
-            value={format(firstDayCurrentMonth, "yyyy")}
+            value={selectedYear}
             onValueChange={(val) => handleYearChange(Number(val))}
           >
             <SelectTrigger className="border border-[#DADADA] bg-white rounded-sm py-2 pl-2 pr-1 w-[116px] h-10 font-medium text-sm text-[#484848]">
@@ -140,36 +150,43 @@ export default function Calendar() {
 
       {/* Days grid */}
       <div className="grid grid-cols-7">
-        {days.map((day, dayIdx) => (
-          <div
-            key={day.toString()}
-            className={cn(dayIdx === 0 && colStartClasses[getDay(day)], "p-1")}
-          >
-            <button
-              type="button"
-              onClick={() => setSelectedDay(day)}
-              className={cn(
-                isEqual(day, selectedDay) && "text-[#FBFAFA] bg-primary",
-                !isEqual(day, selectedDay) &&
-                  isToday(day) &&
-                  "border border-primary",
-                !isEqual(day, selectedDay) &&
-                  isSameMonth(day, firstDayCurrentMonth) &&
-                  "text-[#484848]",
-                !isEqual(day, selectedDay) &&
-                  !isToday(day) &&
-                  !isSameMonth(day, firstDayCurrentMonth) &&
-                  "text-[#484848]/40",
-                !isEqual(day, selectedDay) && "hover:bg-gray-200",
-                "mx-auto flex h-10 w-10 items-center justify-center rounded-lg"
-              )}
+        {days.map(
+          (
+            {
+              date,
+              dayOfMonth,
+              iso,
+              isSelected,
+              isToday,
+              isSameMonth,
+              colStart,
+            },
+            idx
+          ) => (
+            <div
+              key={iso}
+              className={cn(idx === 0 && colStartClasses[colStart], "p-1")}
             >
-              <time dateTime={format(day, "yyyy-MM-dd")}>
-                {format(day, "d")}
-              </time>
-            </button>
-          </div>
-        ))}
+              <button
+                type="button"
+                onClick={() => setSelectedDay(date)}
+                className={cn(
+                  "mx-auto flex h-10 w-10 items-center justify-center rounded-lg",
+                  isSelected && "text-[#FBFAFA] bg-primary",
+                  !isSelected && isToday && "border border-primary",
+                  !isSelected && isSameMonth && "text-[#484848]",
+                  !isSelected &&
+                    !isToday &&
+                    !isSameMonth &&
+                    "text-[#484848]/40",
+                  !isSelected && "hover:bg-gray-200"
+                )}
+              >
+                <time dateTime={iso}>{dayOfMonth}</time>
+              </button>
+            </div>
+          )
+        )}
       </div>
     </div>
   );
