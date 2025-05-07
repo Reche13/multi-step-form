@@ -70,13 +70,13 @@ const Summary = ({ onBack, onNext, reset }: Props) => {
             <div className="grid grid-cols-2 gap-10 max-w-[50vw]">
               {form.skills?.length > 0 &&
                 form.skills.map((skill, index) => (
-                  <>
+                  <React.Fragment key={skill.name + skill.level}>
                     <SummaryItem
                       header={"Skill " + (index + 1)}
                       value={skill.name}
                     />
                     <SummaryItem header="Experience" value={skill.level} />
-                  </>
+                  </React.Fragment>
                 ))}
             </div>
           </div>
@@ -88,7 +88,10 @@ const Summary = ({ onBack, onNext, reset }: Props) => {
             <div className="flex flex-col gap-10">
               {form.colleges?.length > 0 &&
                 form.colleges.map((college, index) => (
-                  <div className="grid grid-cols-4 gap-2">
+                  <div
+                    className="grid grid-cols-4 gap-2"
+                    key={college.degree + college.universityName}
+                  >
                     <SummaryItem header="Degree Name" value={college.degree} />
                     <SummaryItem
                       header="University"
@@ -125,14 +128,18 @@ const Summary = ({ onBack, onNext, reset }: Props) => {
 
         <div className="flex items-center gap-2 mt-6">
           <input
+            id="check"
             type="checkbox"
             checked={checked}
             onChange={() => setChecked(!checked)}
             className="w-4 h-4 accent-primary rounded border-gray-300 focus:ring-primary"
           />
-          <p className="text-[#556171] text-base font-semibold">
+          <label
+            htmlFor="check"
+            className="text-[#556171] text-base font-semibold"
+          >
             By submitting, you agree to our Terms & Conditions.
-          </p>
+          </label>
         </div>
 
         <div className="flex items-center gap-5 mt-14 pb-16">
