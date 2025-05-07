@@ -32,32 +32,32 @@ const BasicInformation = ({ onNext, onBack }: Props) => {
       <div className="flex flex-col gap-4">
         <SectionTitle title="Basic Information" />
         <div className="w-full">
-          <div className="flex gap-5">
+          <div className="flex flex-col md:flex-row gap-5">
             <Input
               id="firstname"
               label="First Name"
-              className="w-[420px]"
+              className="w-full md:w-[420px]"
               {...register("firstname")}
               error={errors.firstname?.message}
             />
             <Input
               id="lastname"
               label="Last Name"
-              className="w-[420px]"
+              className="w-full md:w-[420px]"
               {...register("lastname")}
               error={errors.lastname?.message}
             />
           </div>
-          <div className="flex gap-5 mt-5">
+          <div className="flex flex-col md:flex-row gap-5 mt-5">
             <Input
               id="email"
               label="Email Address"
-              className="w-[420px]"
+              className="w-full md:w-[420px]"
               {...register("email")}
               error={errors.email?.message}
             />
             <div
-              className={`relative h-fit w-[420px] mt-4 rounded-sm ${
+              className={`relative h-fit w-full md:w-[420px] mt-4 rounded-sm ${
                 errors.phone && "border border-error"
               }`}
             >
