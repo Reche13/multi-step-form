@@ -8,15 +8,14 @@ A responsive, animated, multi-step form built with **Next.js**, **Tailwind CSS**
 
 ## Tech Stack
 
-| Tech                      | Purpose                                  |
-| ------------------------- | ---------------------------------------- |
-| **Next.js**               | Framework for building the React app     |
-| **Tailwind CSS**          | Styling and responsive UI                |
-| **pnpm**                  | Package manager (used for project setup) |
-| **Dnd Kit**               | Drag-and-drop support for skills section |
-| **Framer Motion**         | Animations between form steps            |
-| **Zod & React Hook Form** | Form validation and schema management    |
-| **LocalStorage**          | For persisting the form data             |
+| Tech                      | Purpose                               |
+| ------------------------- | ------------------------------------- |
+| **Next.js**               | Framework for building the React app  |
+| **Tailwind CSS**          | Styling and responsive UI             |
+| **Dnd Kit**               | Drag-and-drop support                 |
+| **Framer Motion**         | Animations                            |
+| **Zod & React Hook Form** | Form validation and schema management |
+| **LocalStorage**          | For persisting the form data          |
 
 ## Getting Started
 
@@ -38,3 +37,5 @@ pnpm install
 ```bash
 pnpm run dev
 ```
+
+Open http://localhost:3000 in your browser.
